@@ -1,0 +1,6 @@
+node_modules/
+site/d/
+site/hanzi-writer.min.js
+test-results/
+playwright-report/
+.DS_Store
