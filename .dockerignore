@@ -1,0 +1,10 @@
+node_modules
+site/d
+site/hanzi-writer.min.js
+tests
+test-results
+playwright-report
+playwright.config.mjs
+.git
+.DS_Store
+*.md

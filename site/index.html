@@ -1,0 +1,1336 @@
+<!doctype html>
+<html lang="uk" data-scheme="zoshyt" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Зошит ієрогліфів</title>
+<meta name="description" content="Тренажер китайських ієрогліфів: письмо за рисками, картки, вікторина, пари.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23c8321e'/%3E%3Ctext x='32' y='47' font-size='42' text-anchor='middle' fill='%23fff' font-family='Kaiti SC,KaiTi,STKaiti,serif'%3E字%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Noto+Sans:wght@400;500&family=Unbounded:wght@500;700&display=swap">
+<style>
+:root {
+  --ts: 1; --tile: 68px; --field: 360px;
+  --f-head: "Unbounded", "Golos Text", system-ui, sans-serif;
+  --f-text: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-pin: "Noto Sans", "Golos Text", system-ui, sans-serif;
+  --f-han: "Kaiti SC", "KaiTi", "STKaiti", "AR PL UKai CN", "Noto Serif SC", "Songti SC", serif;
+  --seal: #c8321e; --on-seal: #fff6ee;
+  --r: 10px;
+}
+/* ---- схеми: «Зошит», «Туш», «Нефрит», «Слива», «Контраст» ---- */
+[data-scheme="zoshyt"][data-theme="light"] {
+  --bg: #f5f8ee; --rule: #cfe3c6; --paper: #fffffb; --paper2: #eef4e6; --ink: #1c2f78; --mute: #5a6790;
+  --line: #b7cdb0; --accent: #1f3fa6; --on-accent: #ffffff; --glyph: #1b2c7c; --outline: #cdd6ea;
+  --hl: #e0612a; --rad: #1e8a4c; --draw: #3552c4; --grid: #9fc79a; --ok: #1e7d46; --mid: #a86a00; --bad: #c0281c;
+}
+[data-scheme="zoshyt"][data-theme="dark"] {
+  --bg: #1d382e; --rule: #2a4a3d; --paper: #244438; --paper2: #1a3229; --ink: #f1f3e6; --mute: #b5c7b6;
+  --line: #4a6b5b; --accent: #f3dc7a; --on-accent: #1d2c20; --glyph: #f6f5ea; --outline: #4d6e5f;
+  --hl: #ffb86b; --rad: #8fe3ff; --draw: #fffbe0; --grid: #5d8270; --ok: #9fe6a6; --mid: #f3d27a; --bad: #ff9c8c;
+  --seal: #e2533c;
+}
+[data-scheme="tush"][data-theme="light"] {
+  --bg: #f3eee2; --rule: #e6dfcf; --paper: #fbf8f0; --paper2: #ece5d5; --ink: #1d1a16; --mute: #6b6457;
+  --line: #cbc1ab; --accent: #26221c; --on-accent: #fbf8f0; --glyph: #16130f; --outline: #d9d1bf;
+  --hl: #c8321e; --rad: #a3421a; --draw: #3a342b; --grid: #c9b99a; --ok: #2f6b3c; --mid: #8f5f00; --bad: #b3261a;
+}
+[data-scheme="tush"][data-theme="dark"] {
+  --bg: #151412; --rule: #1f1d1a; --paper: #211f1c; --paper2: #191715; --ink: #ece5d6; --mute: #a59c8b;
+  --line: #45413a; --accent: #ece5d6; --on-accent: #191715; --glyph: #f2ecdf; --outline: #47423a;
+  --hl: #ff7a5c; --rad: #e9b872; --draw: #ffffff; --grid: #5a5347; --ok: #93d6a0; --mid: #e8c06a; --bad: #ff8f7d;
+  --seal: #d9442e;
+}
+[data-scheme="jade"][data-theme="light"] {
+  --bg: #ecf5f0; --rule: #d3e8dd; --paper: #fbfefc; --paper2: #e1f0e8; --ink: #113b32; --mute: #4f7268;
+  --line: #a9cfbe; --accent: #17755a; --on-accent: #ffffff; --glyph: #0f4638; --outline: #c8e0d6;
+  --hl: #d2691e; --rad: #7a3fb0; --draw: #1b8c6c; --grid: #93c7b2; --ok: #17755a; --mid: #946200; --bad: #b8301f;
+}
+[data-scheme="jade"][data-theme="dark"] {
+  --bg: #0e231f; --rule: #15302a; --paper: #153029; --paper2: #0c1e1a; --ink: #dbf0e6; --mute: #94b9ab;
+  --line: #2e5a4d; --accent: #62cfa6; --on-accent: #062019; --glyph: #e3f6ed; --outline: #315a4e;
+  --hl: #ffb26b; --rad: #d8a6ff; --draw: #a4f0d1; --grid: #3f7362; --ok: #7fe0b3; --mid: #efca70; --bad: #ff9a8a;
+  --seal: #e2533c;
+}
+[data-scheme="plum"][data-theme="light"] {
+  --bg: #f7eff4; --rule: #ecdbe6; --paper: #fffbfd; --paper2: #f1e2ec; --ink: #3b1d38; --mute: #7a5874;
+  --line: #d6b8cd; --accent: #8a2c6a; --on-accent: #ffffff; --glyph: #45163f; --outline: #e3cfdd;
+  --hl: #d9541e; --rad: #1f7a6a; --draw: #a3387f; --grid: #d0a5c3; --ok: #2c7548; --mid: #8f5c00; --bad: #b8261f;
+}
+[data-scheme="plum"][data-theme="dark"] {
+  --bg: #211220; --rule: #2c1a2a; --paper: #2e1a2c; --paper2: #1a0e19; --ink: #f2deed; --mute: #c09fb9;
+  --line: #5a3a55; --accent: #e594c9; --on-accent: #2a0f25; --glyph: #f8e6f3; --outline: #593a54;
+  --hl: #ffb070; --rad: #8fe6d2; --draw: #ffd0ef; --grid: #6f4a68; --ok: #9be0b0; --mid: #f0c873; --bad: #ff9c94;
+  --seal: #e2533c;
+}
+[data-scheme="contrast"][data-theme="light"] {
+  --bg: #ffffff; --rule: #ffffff; --paper: #ffffff; --paper2: #f0f0f0; --ink: #000000; --mute: #333333;
+  --line: #000000; --accent: #0030c0; --on-accent: #ffffff; --glyph: #000000; --outline: #b8b8b8;
+  --hl: #d00000; --rad: #007a2a; --draw: #0030c0; --grid: #808080; --ok: #006b24; --mid: #7a4a00; --bad: #c00000;
+  --seal: #c00000; --on-seal: #ffffff;
+}
+[data-scheme="contrast"][data-theme="dark"] {
+  --bg: #000000; --rule: #000000; --paper: #000000; --paper2: #1a1a1a; --ink: #ffffff; --mute: #d6d6d6;
+  --line: #ffffff; --accent: #ffe600; --on-accent: #000000; --glyph: #ffffff; --outline: #5c5c5c;
+  --hl: #ff7070; --rad: #6dff9a; --draw: #ffe600; --grid: #8c8c8c; --ok: #6dff9a; --mid: #ffd24d; --bad: #ff7b7b;
+  --seal: #ff4433; --on-seal: #000000;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: calc(100% * var(--ts)); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; min-height: 100vh; color: var(--ink); font-family: var(--f-text); line-height: 1.45;
+  background: var(--bg) repeating-linear-gradient(to bottom, transparent 0 31px, var(--rule) 31px 32px);
+  overflow-wrap: anywhere; display: flex; flex-direction: column;
+}
+h1, h2, h3 { font-family: var(--f-head); font-weight: 700; line-height: 1.2; margin: 0; }
+h2 { font-size: 1.05rem; }
+h3 { font-size: .8rem; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--mute); margin-bottom: .5rem; }
+p { margin: 0; }
+a { color: var(--accent); }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--hl); outline-offset: 2px; border-radius: 4px; }
+[hidden] { display: none !important; }
+.wrap { max-width: 1060px; margin: 0 auto; padding: 0 16px; }
+.han { font-family: var(--f-han); }
+.pin { font-family: var(--f-pin); }
+.mute { color: var(--mute); }
+
+/* ---- шапка ---- */
+header.top { background: var(--paper); border-bottom: 2px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 12px; padding: 14px 0 10px; }
+.seal {
+  flex: none; width: 2.6rem; height: 2.6rem; border-radius: 8px; background: var(--seal); color: var(--on-seal);
+  display: grid; place-items: center; font-family: var(--f-han); font-size: 1.9rem; line-height: 1;
+  transform: rotate(-4deg); box-shadow: inset 0 0 0 2px var(--seal), inset 0 0 0 3.5px color-mix(in srgb, var(--on-seal) 70%, transparent);
+}
+.brand h1 { font-size: 1.15rem; flex: 1; min-width: 0; }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; padding-bottom: 0; }
+nav.tabs a {
+  padding: .5rem .7rem; text-decoration: none; color: var(--mute); font-weight: 600; font-size: .92rem;
+  border: 2px solid transparent; border-bottom: 0; border-radius: 8px 8px 0 0; margin-bottom: -2px;
+}
+nav.tabs a:hover { color: var(--ink); }
+nav.tabs a[aria-current="page"] { color: var(--ink); background: var(--bg); border-color: var(--line); }
+main { padding-top: 20px; padding-bottom: 40px; flex: 1; width: 100%; }
+
+/* ---- кнопки та поля ---- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4em; min-height: 2.5rem; padding: .45rem .9rem;
+  border: 1.5px solid var(--line); border-radius: var(--r); background: var(--paper); color: var(--ink);
+  font-weight: 500; cursor: pointer; text-align: center;
+}
+.btn:hover:not(:disabled) { border-color: var(--accent); }
+.btn:disabled { opacity: .45; cursor: default; }
+.btn.pri { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+.btn.danger { color: var(--bad); }
+.btn.armed { background: var(--bad); border-color: var(--bad); color: var(--paper); }
+.btn.sm { min-height: 2.1rem; padding: .25rem .65rem; font-size: .9rem; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.panel { background: var(--paper); border: 1.5px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+input[type="text"], select, textarea {
+  width: 100%; min-height: 2.5rem; padding: .45rem .65rem; border: 1.5px solid var(--line); border-radius: var(--r);
+  background: var(--paper2); color: var(--ink);
+}
+textarea { min-height: 6.5rem; resize: vertical; font-family: var(--f-han), var(--f-text); font-size: 1.1rem; display: block; }
+label.fld { display: block; font-weight: 600; margin-bottom: .35rem; }
+label.ck { display: inline-flex; align-items: center; gap: .5em; cursor: pointer; min-height: 2rem; }
+input[type="checkbox"] { width: 1.15rem; height: 1.15rem; accent-color: var(--accent); flex: none; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1.5px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--paper2); }
+.seg button { border: 0; background: none; padding: .4rem .75rem; min-height: 2.3rem; cursor: pointer; font-weight: 500; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.seg button:focus-visible { outline-offset: -3px; }
+.msg { margin-top: .6rem; font-weight: 500; }
+.empty { text-align: center; padding: 2.5rem 1rem; color: var(--mute); }
+.badge { display: inline-block; font: 500 .72rem var(--f-text); padding: .1rem .5rem; border-radius: 99px; background: var(--seal); color: var(--on-seal); vertical-align: middle; letter-spacing: 0; text-transform: none; }
+#net { position: sticky; top: 0; z-index: 5; background: var(--bad); color: var(--paper); padding: 8px 0; }
+#net .wrap { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
+
+/* ---- знак ---- */
+svg.gl { display: block; width: 100%; height: 100%; fill: currentColor; color: var(--glyph); }
+.gl-t { display: grid; place-items: center; width: 100%; height: 100%; font-family: var(--f-han); color: var(--glyph); line-height: 1; container-type: size; }
+.gl-t > b { font-weight: 400; font-size: 78cqmin; }
+
+/* ---- список ---- */
+.setbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+@media (min-width: 720px) { .setbar { grid-template-columns: minmax(0, 320px) 1fr; align-items: end; } }
+.tiles { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+.tile {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 100%; padding: 10px;
+  background: var(--paper); border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; text-align: center;
+}
+.tile:hover { border-color: var(--accent); }
+.cells { display: flex; flex-wrap: wrap; justify-content: center; }
+.cell {
+  width: var(--tile); height: var(--tile); flex: none; border: 1.5px solid var(--grid); margin-left: -1.5px; padding: 6%;
+  background:
+    linear-gradient(to right, transparent calc(50% - .5px), var(--grid) calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px)),
+    linear-gradient(to bottom, transparent calc(50% - .5px), var(--grid) calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px)),
+    var(--paper);
+}
+.cell:first-child { margin-left: 0; }
+.tile .tp { font-family: var(--f-pin); font-size: .9rem; color: var(--accent); max-width: calc(var(--tile) * 2.4); }
+.tile .tm { font-size: .82rem; color: var(--mute); max-width: max(calc(var(--tile) * 2.4), 100%); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.bars { display: flex; gap: 3px; margin-top: 2px; }
+.bars i { width: 12px; height: 4px; border-radius: 2px; background: var(--line); }
+.bars i.on { background: var(--ok); }
+body.no-p .tile .tp, body.no-m .tile .tm, body.no-b .tile .bars { display: none; }
+details.help { margin-top: .75rem; color: var(--mute); font-size: .9rem; }
+details.help summary { cursor: pointer; }
+details.help pre { font-family: var(--f-han), var(--f-pin); margin: .5rem 0 0; white-space: pre-wrap; font-size: 1rem; color: var(--ink); }
+
+/* ---- письмо ---- */
+.wopts { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.wopts select { width: auto; }
+.wmain { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.wprompt { text-align: center; min-height: 3.2rem; }
+.wprompt .pin { font-size: 1.5rem; color: var(--accent); }
+.wprompt .mean { font-size: 1.05rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.chip { width: 2.2rem; height: 2.2rem; border-radius: 8px; border: 1.5px solid var(--line); display: grid; place-items: center; font-family: var(--f-han); font-size: 1.3rem; background: var(--paper); color: var(--mute); }
+.chip.hid { color: transparent; }
+.chip.cur { border-color: var(--accent); border-width: 2.5px; }
+.chip.done { background: var(--ok); border-color: var(--ok); color: var(--paper); }
+button.chip { cursor: pointer; color: var(--ink); }
+button.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.fieldwrap { position: relative; width: min(var(--field), 100%); aspect-ratio: 1; background: var(--paper); border: 2.5px solid var(--grid); border-radius: 6px; }
+.fieldwrap svg.grid { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.fieldwrap svg.grid path { stroke: var(--grid); stroke-width: 1.5; stroke-dasharray: 7 6; fill: none; vector-effect: non-scaling-stroke; }
+#field { position: absolute; inset: 0; touch-action: none; cursor: crosshair; }
+#field svg { display: block; }
+.stamp {
+  position: absolute; top: 4%; right: 4%; width: 26%; aspect-ratio: 1; border-radius: 14%; display: grid; place-items: center;
+  font-family: var(--f-han); font-size: calc(min(var(--field), 100vw - 32px) * .19); line-height: 1; pointer-events: none;
+  color: var(--seal); border: .09em solid var(--seal); background: color-mix(in srgb, var(--paper) 82%, transparent);
+  transform: rotate(8deg); animation: stamp .28s cubic-bezier(.2, 1.6, .4, 1);
+}
+.stamp.g-ok { color: var(--mid); border-color: var(--mid); }
+.stamp.g-again { color: var(--mute); border-color: var(--mute); }
+@keyframes stamp { from { transform: rotate(8deg) scale(1.9); opacity: 0; } }
+.wstat { display: flex; flex-wrap: wrap; gap: 4px 18px; justify-content: center; color: var(--mute); font-size: .95rem; }
+.wbtns { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.results { list-style: none; margin: 12px 0; padding: 0; display: grid; gap: 6px; }
+.results li { display: flex; align-items: center; gap: 12px; padding: 6px 10px; background: var(--paper2); border-radius: 8px; }
+.results .han { font-size: 1.5rem; min-width: 2.2em; }
+.results .g { font-family: var(--f-han); font-size: 1.3rem; color: var(--seal); width: 1.6em; height: 1.6em; display: grid; place-items: center; border: 2px solid currentColor; border-radius: 5px; flex: none; }
+.results .g.g-ok { color: var(--mid); } .results .g.g-again, .results .g.g-none { color: var(--mute); }
+.results .rm { flex: 1; min-width: 0; color: var(--mute); font-size: .9rem; }
+
+/* ---- картки ---- */
+.center { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.fc {
+  width: min(420px, 100%); min-height: 260px; padding: 20px; border: 2px solid var(--line); border-radius: 18px; background: var(--paper);
+  cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center;
+  transition: transform .18s;
+}
+.fc.back { border-color: var(--accent); background: var(--paper2); }
+.fc .big { display: flex; flex-wrap: wrap; justify-content: center; }
+.fc .big > span { width: 110px; height: 110px; }
+.fc .pin { font-size: 1.4rem; color: var(--accent); }
+.fc .mean { font-size: 1.25rem; }
+.fc .tap { font-size: .85rem; color: var(--mute); }
+
+/* ---- вікторина ---- */
+.qprompt { min-height: 130px; display: grid; place-items: center; text-align: center; }
+.qprompt .big { display: flex; flex-wrap: wrap; justify-content: center; }
+.qprompt .big > span { width: 110px; height: 110px; }
+.qprompt .txt { font-size: 1.5rem; font-weight: 500; }
+.qopts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: min(560px, 100%); }
+.qopt { min-height: 4.6rem; padding: 8px 10px 8px 2rem; position: relative; border: 2px solid var(--line); border-radius: 12px; background: var(--paper); cursor: pointer; display: grid; place-items: center; font-size: 1.05rem; }
+.qopt kbd { position: absolute; left: 8px; top: 6px; font: 500 .75rem var(--f-pin); color: var(--mute); border: 1px solid var(--line); border-radius: 4px; padding: 0 .35em; }
+.qopt .big { display: flex; flex-wrap: wrap; justify-content: center; }
+.qopt .big > span { width: 54px; height: 54px; }
+.qopt:hover:not(:disabled) { border-color: var(--accent); }
+.qopt.right { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 18%, var(--paper)); }
+.qopt.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 16%, var(--paper)); }
+.qopt:disabled { cursor: default; }
+.score { font-family: var(--f-head); font-size: 2rem; }
+
+/* ---- пари ---- */
+.pgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; width: min(640px, 100%); }
+@media (min-width: 700px) { .pgrid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.pc { min-height: 92px; padding: 8px; border: 2px solid var(--line); border-radius: 12px; background: var(--paper); cursor: pointer; display: grid; place-items: center; text-align: center; font-size: .95rem; }
+.pc .big { display: flex; flex-wrap: wrap; justify-content: center; }
+.pc .big > span { width: 46px; height: 46px; }
+.pc[aria-pressed="true"] { border-color: var(--accent); border-width: 3px; background: var(--paper2); }
+.pc.matched { opacity: .35; border-style: dashed; cursor: default; }
+.pc.bad { border-color: var(--bad); animation: shake .3s; }
+@keyframes shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+/* ---- діалоги ---- */
+dialog {
+  width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 2px solid var(--line); border-radius: 16px;
+  background: var(--paper); color: var(--ink); overflow: auto;
+}
+dialog::backdrop { background: rgb(0 0 0 / .5); }
+.dhead { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1.5px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 1; }
+.dhead h2 { flex: 1; min-width: 0; }
+.dbody { padding: 16px; display: grid; gap: 16px; }
+.eanim { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.ebox { width: 180px; height: 180px; position: relative; border: 2px solid var(--grid); border-radius: 6px; background: var(--paper); }
+.ebox svg.grid { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ebox svg.grid path { stroke: var(--grid); stroke-width: 1; stroke-dasharray: 5 5; fill: none; vector-effect: non-scaling-stroke; }
+#eField { position: absolute; inset: 0; }
+#eField .gl-t { position: absolute; inset: 0; }
+.efields { display: grid; gap: 10px; }
+dl.info { display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); gap: 6px 14px; margin: 0; }
+dl.info dt { color: var(--mute); font-size: .9rem; }
+dl.info dd { margin: 0; }
+dl.info dd .han { font-size: 1.25rem; }
+.sgrid { display: grid; gap: 14px; }
+.swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+.sw { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px 6px 6px; border: 2px solid var(--line); border-radius: 99px; background: var(--paper); cursor: pointer; }
+.sw[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.sw i { width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 1.5px solid rgb(0 0 0 / .25); }
+.srow { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; justify-content: space-between; }
+.cks { display: grid; gap: 2px; }
+
+footer { border-top: 2px solid var(--line); background: var(--paper); padding: 16px 0 28px; font-size: .85rem; color: var(--mute); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+<div id="net" hidden role="alert"><div class="wrap"><span data-i="netErr"></span><button class="btn sm" data-act="retry" data-i="retry"></button></div></div>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div class="seal" aria-hidden="true">字</div>
+      <h1 data-i="title"></h1>
+      <button class="btn sm" data-act="settings" data-i="settings"></button>
+    </div>
+    <nav class="tabs" id="tabs" data-i-aria="navLabel"></nav>
+  </div>
+</header>
+<main class="wrap" id="view"></main>
+<footer>
+  <div class="wrap">
+    <p><span data-i="srcLead"></span>
+      <a href="https://github.com/skishore/makemeahanzi" rel="noopener">Make Me a Hanzi</a>
+      (<a href="https://www.freedesktop.org/wiki/Arphic_Public_License/" rel="noopener">Arphic Public License</a>, Unihan)
+      <span data-i="srcAnd"></span>
+      <a href="https://hanziwriter.org" rel="noopener">Hanzi Writer</a>.</p>
+  </div>
+</footer>
+
+<dialog id="dlgEntry" aria-labelledby="eTitle">
+  <div class="dhead"><h2 id="eTitle" class="han"></h2><button class="btn sm" data-act="close" data-i="close"></button></div>
+  <div class="dbody" id="eBody"></div>
+</dialog>
+<dialog id="dlgSet" aria-labelledby="sTitle">
+  <div class="dhead"><h2 id="sTitle" data-i="settings"></h2><button class="btn sm" data-act="close" data-i="close"></button></div>
+  <div class="dbody" id="sBody"></div>
+</dialog>
+
+<script src="hanzi-writer.min.js"></script>
+<script>
+'use strict';
+/* =================== переклади =================== */
+const T = {
+uk: {
+  title: 'Зошит ієрогліфів', settings: 'Налаштування', close: 'Закрити', navLabel: 'Режими',
+  tabList: 'Список', tabWrite: 'Письмо', tabCards: 'Картки', tabQuiz: 'Вікторина', tabPairs: 'Пари',
+  netErr: 'Не вдалося завантажити дані ієрогліфів.', retry: 'Повторити', loading: 'Завантаження…',
+  srcLead: 'Дані про риски та словник:', srcAnd: '· анімація й перевірка рисок:',
+  set: 'Набір', setNew: 'Новий набір', setRename: 'Перейменувати', setDelete: 'Видалити набір', setReset: 'Скинути прогрес',
+  sure: 'Точно видалити?', sureReset: 'Точно скинути?', setName: 'Назва набору', ok: 'Гаразд', cancel: 'Скасувати',
+  demo: 'приклад', mySet: 'Мій список', newSetName: 'Новий набір', progReset: 'Прогрес набору скинуто.',
+  addLabel: 'Додати ієрогліфи', addBtn: 'Додати', addSplit: 'Розбити слова на окремі знаки',
+  addPh: '猫\n朋友 péngyou друг\n茶 — chá — чай',
+  addHelp: 'Які формати розуміє поле', addHelpText: '你好 谢谢, 再见      — кілька записів у рядку\n猫 māo кіт              — знак, піньїнь, переклад\n朋友 — péngyou — друг   — через « — », «|», «;» або Tab\n书 книга                — лише переклад, піньїнь додасться сам',
+  added: 'Додано: {n}, вже було: {m}.', addedNew: 'Додано: {n}, вже було: {m}. Створено набір «{s}».', addNone: 'Не знайдено жодного ієрогліфа.',
+  entries: 'записів: {n}', emptySet: 'У наборі ще немає записів. Додайте ієрогліфи на вкладці «Список».',
+  ePinyin: 'Піньїнь', eMeaning: 'Переклад', eNote: 'Нотатка', eStrokes: 'Рисок', eRadical: 'Ключ', eStruct: 'Будова',
+  eOrigin: 'Походження', eOther: 'Інші читання', eDict: 'Словник (англ.)', eWrite: 'Писати цей запис', eListen: 'Прослухати',
+  eDelete: 'Видалити', eNoData: 'Для цього знака немає даних про риски.', eParts: 'частини', ePhon: 'фонетик', eSem: 'смисл', eChar: 'Знак {c}',
+  idc0: 'ліворуч і праворуч', idc1: 'згори і знизу', idc2: 'три частини в ряд', idc3: 'три частини у стовпчик', idc4: 'повне оточення',
+  idc5: 'оточення згори', idc6: 'оточення знизу', idc7: 'оточення зліва', idc8: 'оточення згори й зліва', idc9: 'оточення згори й справа',
+  idc10: 'оточення зліва й знизу', idc11: 'накладання', idcNone: 'неподільний знак',
+  etIdeo: 'ідеограма', etPicto: 'піктограма', etPhono: 'фоноідеограма',
+  lvl: 'Рівень', lvlWatch: 'Дивитися', lvlTrace: 'Обводити', lvlMemory: 'З пам\'яті', grid: 'Сітка',
+  rad: 'Виділяти ключ кольором', strict: 'Суворість', stSoft: 'м\'яка', stNormal: 'звичайна', stStrict: 'сувора',
+  wHint: 'Підказати риску', wShow: 'Показати порядок', wSkip: 'Пропустити', wNext: 'Далі',
+  wStroke: 'риска {x} з {y}', wMiss: 'промахів: {n}', wItem: 'запис {x} з {y}',
+  wDone: 'Набір пройдено', wRepeatMiss: 'Повторити ті, де були промахи', wAgain: 'Пройти весь набір ще раз',
+  gClean: 'чисто', gOk: 'годиться', gAgain: 'повторити', gSkip: 'пропущено', gWatch: 'переглянуто', gNoData: 'немає даних',
+  cDir: 'Напрям', cHM: '字 → значення', cMH: 'значення → 字', cFlip: 'натисніть, щоб перевернути', cAgain: 'Ще повторю', cKnow: 'Знаю',
+  cLeft: 'залишилось: {n}', cDone: 'Усі картки пройдено!', cRestart: 'Почати знову',
+  qNeed: 'Для вікторини потрібно щонайменше 3 записи з перекладом або піньїнем.', qOf: 'питання {x} з {y}', qScore: 'Результат: {x} з {y}',
+  qAgain: 'Ще раунд', qKeys: 'Клавіші 1–4 — вибір відповіді, Enter — далі.', qHM: 'Що означає цей запис?', qHP: 'Як це читається?',
+  qMH: 'Який запис має це значення?', qPH: 'Який запис так читається?',
+  pNeed: 'Для гри потрібно щонайменше 2 записи з перекладом.', pTime: 'час: {t}', pTries: 'спроб: {n}', pBest: 'найкращий час: {t}',
+  pDone: 'Усі пари зібрано!', pNewBest: 'Новий рекорд!', pAgain: 'Нова гра', pHint: 'З\'єднайте ієрогліфи з перекладами.', sec: 'с',
+  sLang: 'Мова інтерфейсу', sTheme: 'Тема', thAuto: 'як у системі', thLight: 'світла', thDark: 'темна', sScheme: 'Кольори',
+  scZoshyt: 'Зошит', scTush: 'Туш', scJade: 'Нефрит', scPlum: 'Слива', scContrast: 'Контраст',
+  sSizes: 'Розміри', szText: 'Текст', szTile: 'Плитки', szField: 'Поле письма',
+  sShow: 'Що показувати', shP: 'Піньїнь у списку', shM: 'Переклад у списку', shB: 'Смужки прогресу', shHint: 'Піньїнь у підказці письма',
+  sModes: 'Режими', sReset: 'Повернути стандартний вигляд'
+},
+en: {
+  title: 'Hanzi Copybook', settings: 'Settings', close: 'Close', navLabel: 'Modes',
+  tabList: 'List', tabWrite: 'Writing', tabCards: 'Cards', tabQuiz: 'Quiz', tabPairs: 'Pairs',
+  netErr: 'Could not load character data.', retry: 'Retry', loading: 'Loading…',
+  srcLead: 'Stroke data and dictionary:', srcAnd: '· stroke animation and checking:',
+  set: 'Set', setNew: 'New set', setRename: 'Rename', setDelete: 'Delete set', setReset: 'Reset progress',
+  sure: 'Really delete?', sureReset: 'Really reset?', setName: 'Set name', ok: 'OK', cancel: 'Cancel',
+  demo: 'example', mySet: 'My list', newSetName: 'New set', progReset: 'Progress for this set was reset.',
+  addLabel: 'Add characters', addBtn: 'Add', addSplit: 'Split words into single characters',
+  addPh: '猫\n朋友 péngyou friend\n茶 — chá — tea',
+  addHelp: 'Formats this field understands', addHelpText: '你好 谢谢, 再见        — several entries on one line\n猫 māo cat              — character, pinyin, meaning\n朋友 — péngyou — friend — split by “ — ”, “|”, “;” or Tab\n书 — shū — book         — pinyin is filled in when missing',
+  added: 'Added: {n}, already there: {m}.', addedNew: 'Added: {n}, already there: {m}. Created the set “{s}”.', addNone: 'No Chinese characters found.',
+  entries: 'entries: {n}', emptySet: 'This set is empty. Add characters on the List tab.',
+  ePinyin: 'Pinyin', eMeaning: 'Meaning', eNote: 'Note', eStrokes: 'Strokes', eRadical: 'Radical', eStruct: 'Structure',
+  eOrigin: 'Origin', eOther: 'Other readings', eDict: 'Dictionary', eWrite: 'Write this entry', eListen: 'Listen',
+  eDelete: 'Delete', eNoData: 'No stroke data for this character.', eParts: 'parts', ePhon: 'phonetic', eSem: 'semantic', eChar: 'Character {c}',
+  idc0: 'left and right', idc1: 'top and bottom', idc2: 'three parts in a row', idc3: 'three parts stacked', idc4: 'full enclosure',
+  idc5: 'enclosed from above', idc6: 'enclosed from below', idc7: 'enclosed from the left', idc8: 'enclosed from upper left', idc9: 'enclosed from upper right',
+  idc10: 'enclosed from lower left', idc11: 'overlaid', idcNone: 'indivisible character',
+  etIdeo: 'ideographic', etPicto: 'pictographic', etPhono: 'pictophonetic',
+  lvl: 'Level', lvlWatch: 'Watch', lvlTrace: 'Trace', lvlMemory: 'From memory', grid: 'Grid',
+  rad: 'Colour the radical', strict: 'Strictness', stSoft: 'lenient', stNormal: 'normal', stStrict: 'strict',
+  wHint: 'Hint a stroke', wShow: 'Show stroke order', wSkip: 'Skip', wNext: 'Next',
+  wStroke: 'stroke {x} of {y}', wMiss: 'misses: {n}', wItem: 'entry {x} of {y}',
+  wDone: 'Set finished', wRepeatMiss: 'Repeat the ones with misses', wAgain: 'Go through the whole set again',
+  gClean: 'clean', gOk: 'fine', gAgain: 'repeat', gSkip: 'skipped', gWatch: 'watched', gNoData: 'no data',
+  cDir: 'Direction', cHM: '字 → meaning', cMH: 'meaning → 字', cFlip: 'tap to flip', cAgain: 'Review again', cKnow: 'I know it',
+  cLeft: 'left: {n}', cDone: 'All cards done!', cRestart: 'Start over',
+  qNeed: 'The quiz needs at least 3 entries with a meaning or pinyin.', qOf: 'question {x} of {y}', qScore: 'Score: {x} of {y}',
+  qAgain: 'Another round', qKeys: 'Keys 1–4 pick an answer, Enter goes on.', qHM: 'What does this mean?', qHP: 'How is this read?',
+  qMH: 'Which entry has this meaning?', qPH: 'Which entry is read this way?',
+  pNeed: 'The game needs at least 2 entries with a meaning.', pTime: 'time: {t}', pTries: 'tries: {n}', pBest: 'best time: {t}',
+  pDone: 'All pairs matched!', pNewBest: 'New record!', pAgain: 'New game', pHint: 'Match the characters with their meanings.', sec: 's',
+  sLang: 'Interface language', sTheme: 'Theme', thAuto: 'system', thLight: 'light', thDark: 'dark', sScheme: 'Colours',
+  scZoshyt: 'Copybook', scTush: 'Ink', scJade: 'Jade', scPlum: 'Plum', scContrast: 'Contrast',
+  sSizes: 'Sizes', szText: 'Text', szTile: 'Tiles', szField: 'Writing field',
+  sShow: 'What to show', shP: 'Pinyin in the list', shM: 'Meaning in the list', shB: 'Progress bars', shHint: 'Pinyin in the writing prompt',
+  sModes: 'Modes', sReset: 'Restore the default look'
+},
+zh: {
+  title: '汉字练习本', settings: '设置', close: '关闭', navLabel: '模式',
+  tabList: '列表', tabWrite: '书写', tabCards: '卡片', tabQuiz: '测验', tabPairs: '配对',
+  netErr: '无法加载汉字数据。', retry: '重试', loading: '加载中…',
+  srcLead: '笔画数据与字典：', srcAnd: '· 笔顺动画与检查：',
+  set: '字表', setNew: '新建字表', setRename: '重命名', setDelete: '删除字表', setReset: '重置进度',
+  sure: '确定删除？', sureReset: '确定重置？', setName: '字表名称', ok: '确定', cancel: '取消',
+  demo: '示例', mySet: '我的字表', newSetName: '新字表', progReset: '已重置该字表的进度。',
+  addLabel: '添加汉字', addBtn: '添加', addSplit: '把词拆成单字',
+  addPh: '猫\n朋友 péngyou friend\n茶 — chá — tea',
+  addHelp: '支持的输入格式', addHelpText: '你好 谢谢, 再见        — 一行多个条目\n猫 māo cat              — 汉字、拼音、释义\n朋友 — péngyou — friend — 用“ — ”“|”“;”或 Tab 分隔\n书 — shū — book         — 缺少拼音时自动补全',
+  added: '已添加 {n} 条，已存在 {m} 条。', addedNew: '已添加 {n} 条，已存在 {m} 条。已新建字表“{s}”。', addNone: '没有找到汉字。',
+  entries: '共 {n} 条', emptySet: '这个字表还是空的。请在“列表”页添加汉字。',
+  ePinyin: '拼音', eMeaning: '释义', eNote: '笔记', eStrokes: '笔画数', eRadical: '部首', eStruct: '结构',
+  eOrigin: '字源', eOther: '其他读音', eDict: '字典（英文）', eWrite: '书写这个条目', eListen: '朗读',
+  eDelete: '删除', eNoData: '这个字没有笔画数据。', eParts: '部件', ePhon: '声旁', eSem: '形旁', eChar: '汉字 {c}',
+  idc0: '左右结构', idc1: '上下结构', idc2: '左中右结构', idc3: '上中下结构', idc4: '全包围结构',
+  idc5: '上三包围', idc6: '下三包围', idc7: '左三包围', idc8: '左上包围', idc9: '右上包围',
+  idc10: '左下包围', idc11: '镶嵌结构', idcNone: '独体字',
+  etIdeo: '会意', etPicto: '象形', etPhono: '形声',
+  lvl: '难度', lvlWatch: '观看', lvlTrace: '描红', lvlMemory: '默写', grid: '字格',
+  rad: '用颜色标出部首', strict: '严格程度', stSoft: '宽松', stNormal: '普通', stStrict: '严格',
+  wHint: '提示一笔', wShow: '演示笔顺', wSkip: '跳过', wNext: '下一个',
+  wStroke: '第 {x} 笔，共 {y} 笔', wMiss: '失误 {n} 次', wItem: '第 {x} 条，共 {y} 条',
+  wDone: '字表练习完成', wRepeatMiss: '重练有失误的条目', wAgain: '整个字表再练一遍',
+  gClean: '很好', gOk: '可以', gAgain: '再练', gSkip: '已跳过', gWatch: '已观看', gNoData: '无数据',
+  cDir: '方向', cHM: '字 → 释义', cMH: '释义 → 字', cFlip: '点击翻面', cAgain: '还要复习', cKnow: '记住了',
+  cLeft: '剩余 {n} 张', cDone: '卡片全部完成！', cRestart: '重新开始',
+  qNeed: '测验至少需要 3 个带释义或拼音的条目。', qOf: '第 {x} 题，共 {y} 题', qScore: '得分：{x} / {y}',
+  qAgain: '再来一轮', qKeys: '按 1–4 选择答案，按 Enter 继续。', qHM: '这个条目是什么意思？', qHP: '这个怎么读？',
+  qMH: '哪个条目是这个意思？', qPH: '哪个条目这样读？',
+  pNeed: '游戏至少需要 2 个带释义的条目。', pTime: '用时 {t}', pTries: '尝试 {n} 次', pBest: '最佳用时 {t}',
+  pDone: '全部配对成功！', pNewBest: '新纪录！', pAgain: '新游戏', pHint: '把汉字和释义配成对。', sec: '秒',
+  sLang: '界面语言', sTheme: '主题', thAuto: '跟随系统', thLight: '浅色', thDark: '深色', sScheme: '配色',
+  scZoshyt: '练习本', scTush: '墨', scJade: '翡翠', scPlum: '梅', scContrast: '高对比',
+  sSizes: '大小', szText: '文字', szTile: '字格', szField: '书写区',
+  sShow: '显示内容', shP: '列表中的拼音', shM: '列表中的释义', shB: '进度条', shHint: '书写提示中的拼音',
+  sModes: '模式', sReset: '恢复默认外观'
+}
+};
+const LANGS = [['uk', 'Українська'], ['en', 'English'], ['zh', '中文']];
+function t(key, vars) {
+  let s = (T[S.ui.lang] || T.uk)[key];
+  if (s == null) s = T.uk[key] != null ? T.uk[key] : key;
+  return vars ? s.replace(/\{(\w+)\}/g, (_, k) => vars[k]) : s;
+}
+
+/* =================== допоміжне =================== */
+const $ = (sel, root) => (root || document).querySelector(sel);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const HAN = /\p{Script=Han}/u;
+const HAN_RUN = /\p{Script=Han}+/gu;
+const hanOf = (str) => [...str].filter((c) => HAN.test(c));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+const reducedMotion = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
+const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+/* =================== стан =================== */
+const KEY = 'zoshyt.v1';
+const TABS = ['list', 'write', 'cards', 'quiz', 'pairs'];
+const SIZES = { text: { S: 0.9, M: 1, L: 1.15, XL: 1.3 }, tile: { S: 52, M: 68, L: 88, XL: 112 }, field: { S: 280, M: 360, L: 460, XL: 560 } };
+const SCHEMES = [['zoshyt', '#1f3fa6', '#f5f8ee'], ['tush', '#1d1a16', '#f3eee2'], ['jade', '#17755a', '#ecf5f0'], ['plum', '#8a2c6a', '#f7eff4'], ['contrast', '#000000', '#ffe600']];
+const DEMO = [
+  ['永', 'yǒng', 'вічний', 'eternal'], ['学', 'xué', 'вчитися', 'to study'], ['写', 'xiě', 'писати', 'to write'],
+  ['字', 'zì', 'ієрогліф, знак', 'character'], ['书', 'shū', 'книга', 'book'], ['语', 'yǔ', 'мова', 'language'],
+  ['茶', 'chá', 'чай', 'tea'], ['猫', 'māo', 'кіт', 'cat'], ['朋友', 'péngyou', 'друг', 'friend']
+];
+const DEMO_NAMES = { uk: 'Перші знаки', en: 'First characters', zh: '入门汉字' };
+function demoSet(lang) {
+  return { id: 'demo', name: DEMO_NAMES[lang] || DEMO_NAMES.uk, demo: true, items: DEMO.map((d) => ({ h: d[0], p: d[1], m: lang === 'uk' ? d[2] : d[3] })) };
+}
+function defaultLang() {
+  let l = '';
+  try { l = (navigator.language || '').toLowerCase(); } catch (e) {}
+  return l.startsWith('zh') ? 'zh' : l.startsWith('en') ? 'en' : 'uk';
+}
+function defaultUI(lang) {
+  return { lang, theme: 'auto', scheme: 'zoshyt', text: 'M', tile: 'M', field: 'M', showP: true, showM: true, showB: true, hintP: true,
+    modes: { write: true, cards: true, quiz: true, pairs: true }, split: false };
+}
+function defaults() {
+  const lang = defaultLang();
+  return { sets: [demoSet(lang)], cur: 'demo', prog: {}, opts: { grid: 'mi', level: 'trace', rad: false, dir: 'hm', strict: 'soft' }, best: {}, ui: defaultUI(lang) };
+}
+function loadState() {
+  const d = defaults();
+  let s = null;
+  try { s = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+  if (!s || typeof s !== 'object' || !Array.isArray(s.sets)) return d;
+  s.sets = s.sets.filter((x) => x && Array.isArray(x.items));
+  if (!s.sets.length) s.sets = d.sets;
+  if (!s.sets.some((x) => x.id === s.cur)) s.cur = s.sets[0].id;
+  s.prog = s.prog && typeof s.prog === 'object' ? s.prog : {};
+  s.best = s.best && typeof s.best === 'object' ? s.best : {};
+  s.opts = Object.assign({}, d.opts, s.opts);
+  s.ui = Object.assign({}, d.ui, s.ui);
+  s.ui.modes = Object.assign({}, d.ui.modes, s.ui.modes);
+  if (!T[s.ui.lang]) s.ui.lang = d.ui.lang;
+  return s;
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+let S = loadState();
+const curSet = () => S.sets.find((x) => x.id === S.cur) || S.sets[0];
+const sig = (set) => set.id + '|' + set.items.map((it) => it.h).join(',');
+const progOf = (h) => (S.prog[h] && S.prog[h].b) || 0;
+
+/* =================== дані знаків =================== */
+const DB = {};
+const LOADED = new Set();
+const PENDING = {};
+const bucket = (ch) => Math.floor(ch.codePointAt(0) / 96);
+function loadBucket(n) {
+  if (LOADED.has(n)) return Promise.resolve();
+  if (!PENDING[n]) {
+    PENDING[n] = fetch('d/' + n + '.json').then((res) => {
+      if (res.status === 404) return {};
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }).then((json) => { Object.assign(DB, json); LOADED.add(n); delete PENDING[n]; },
+      (err) => { delete PENDING[n]; throw err; });
+  }
+  return PENDING[n];
+}
+const missing = (chars) => [...new Set(chars.map(bucket))].filter((n) => !LOADED.has(n));
+const need = (chars) => Promise.all(missing(chars).map(loadBucket));
+function netErr(on) { $('#net').hidden = !on; }
+// true, якщо дані вже є; інакше довантажує і викликає then (якщо вкладка та сама)
+function ensure(chars, then) {
+  if (!missing(chars).length) return true;
+  const token = routeToken;
+  need(chars).then(() => { netErr(false); if (token === routeToken) then(); }, () => netErr(true));
+  return false;
+}
+const charDataLoader = (ch, onLoad) => { const d = DB[ch]; onLoad({ strokes: d.s, medians: d.m, radStrokes: d.r || [] }); };
+
+function glyph(ch) {
+  const d = DB[ch];
+  if (!d) return '<span class="gl-t"><b>' + esc(ch) + '</b></span>';
+  return '<svg class="gl" viewBox="0 0 1024 1024" aria-hidden="true"><g transform="scale(1,-1) translate(0,-900)">' +
+    d.s.map((p) => '<path d="' + p + '"/>').join('') + '</g></svg>';
+}
+const bigGlyphs = (h) => '<span class="big" lang="zh">' + [...h].map((c) => '<span>' + glyph(c) + '</span>').join('') + '</span>';
+const gridSVG = (kind) => '<svg class="grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50 0V100M0 50H100' +
+  (kind === 'mi' ? 'M0 0L100 100M100 0L0 100' : '') + '"/></svg>';
+
+/* =================== розбір введення =================== */
+const TONE = /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜńňǹ]|[a-zü][1-5](?![a-z])/i;
+const LATIN_WORD = /^[a-zāáǎàēéěèīíǐìōóǒòūúǔùüǖǘǚǜńňǹ1-5'’.,:-]+$/i;
+const CYR = /[Ѐ-ӿ]/;
+function parseInput(text, split) {
+  const out = [];
+  const push = (h, p, m) => {
+    if (split && [...h].length > 1) { for (const c of h) out.push({ h: c, p: '', m: '' }); } else out.push({ h, p: p || '', m: m || '' });
+  };
+  for (const raw of String(text).split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line) continue;
+    const runs = line.match(HAN_RUN);
+    if (!runs) continue;
+    if (/^[\p{Script=Han}\p{P}\p{Z}\t|]+$/u.test(line)) { runs.forEach((h) => push(h)); continue; }
+    const h = runs[0];
+    const rest = line.slice(line.indexOf(h) + h.length).replace(/^[\s:：=,，|;；—–-]+/, '').trim();
+    const parts = rest.split(/\t+|\s+[—–-]\s+|\s*\|\s*|\s*[;；]\s*/).map((s) => s.trim()).filter(Boolean);
+    let p = '', m = '';
+    if (parts.length >= 2) {
+      if (parts[0].split(/\s+/).every((w) => LATIN_WORD.test(w))) { p = parts[0]; m = parts.slice(1).join('; '); }
+      else m = parts.join('; ');
+    } else if (parts.length === 1) {
+      const words = parts[0].split(/\s+/);
+      let n = 0;
+      while (n < words.length && LATIN_WORD.test(words[n])) n++;
+      const tail = words.slice(n).join(' ');
+      if (n && CYR.test(tail)) { p = words.slice(0, n).join(' '); m = tail; }
+      else {
+        let k = 0;
+        while (k < n && TONE.test(words[k])) k++;
+        p = words.slice(0, k).join(' '); m = words.slice(k).join(' ');
+      }
+    }
+    push(h, p.replace(/[.,:]+$/, ''), m);
+  }
+  return out;
+}
+function autofill(items) {
+  let changed = false;
+  for (const it of items) {
+    const chars = hanOf(it.h);
+    if (!it.p) {
+      const ps = chars.map((c) => DB[c] && DB[c].p && DB[c].p[0]).filter(Boolean);
+      if (ps.length) { it.p = ps.join(' '); it.ap = true; changed = true; }
+    }
+    if (!it.m && chars.length === 1 && DB[chars[0]] && DB[chars[0]].d) {
+      it.m = DB[chars[0]].d.split(/[;,]/).map((s) => s.trim()).filter(Boolean).slice(0, 2).join(', ');
+      if (it.m) { it.a = true; changed = true; }
+    }
+  }
+  return changed;
+}
+function addEntries(text, split) {
+  const parsed = parseInput(text, split);
+  if (!parsed.length) return { n: 0, m: 0, none: true };
+  let set = curSet(), created = null;
+  if (set.demo) {
+    set = { id: uid(), name: t('mySet'), items: [] };
+    S.sets.push(set); S.cur = set.id; created = set.name;
+  }
+  const have = new Set(set.items.map((it) => it.h));
+  const fresh = [];
+  let dup = 0;
+  for (const e of parsed) {
+    if (have.has(e.h)) { dup++; continue; }
+    have.add(e.h);
+    const it = { h: e.h, p: e.p, m: e.m };
+    set.items.push(it); fresh.push(it);
+  }
+  save();
+  const fill = () => { if (autofill(fresh)) { save(); if (R === 'list') renderTiles(); } };
+  if (ensure(fresh.flatMap((it) => hanOf(it.h)), fill)) fill();
+  return { n: fresh.length, m: dup, created };
+}
+
+/* =================== вигляд і мова =================== */
+let mqDark = null;
+try { mqDark = matchMedia('(prefers-color-scheme: dark)'); } catch (e) {}
+function applyUI() {
+  const ui = S.ui, de = document.documentElement;
+  de.lang = ui.lang === 'zh' ? 'zh-Hans' : ui.lang;
+  de.dataset.scheme = SCHEMES.some((s) => s[0] === ui.scheme) ? ui.scheme : 'zoshyt';
+  de.dataset.theme = ui.theme === 'auto' ? (mqDark && mqDark.matches ? 'dark' : 'light') : ui.theme;
+  de.style.setProperty('--ts', SIZES.text[ui.text] || 1);
+  de.style.setProperty('--tile', (SIZES.tile[ui.tile] || 68) + 'px');
+  de.style.setProperty('--field', (SIZES.field[ui.field] || 360) + 'px');
+  document.body.classList.toggle('no-p', !ui.showP);
+  document.body.classList.toggle('no-m', !ui.showM);
+  document.body.classList.toggle('no-b', !ui.showB);
+  document.title = t('title');
+  document.querySelectorAll('[data-i]').forEach((el) => { el.textContent = t(el.dataset.i); });
+  document.querySelectorAll('[data-i-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.dataset.iAria)); });
+}
+function relocalizeDemo(lang) {
+  for (const set of S.sets) {
+    if (!set.demo) continue;
+    if (Object.values(DEMO_NAMES).includes(set.name)) set.name = DEMO_NAMES[lang];
+    for (const it of set.items) {
+      const d = DEMO.find((x) => x[0] === it.h);
+      if (d && (it.m === d[2] || it.m === d[3])) it.m = lang === 'uk' ? d[2] : d[3];
+    }
+  }
+}
+const seg = (act, key, cur, pairs, label) => '<div class="seg" role="group" aria-label="' + esc(label) + '">' + pairs.map(([v, text]) =>
+  '<button type="button" data-act="' + act + '" data-k="' + key + '" data-v="' + v + '" aria-pressed="' + (cur === v) + '">' + esc(text) + '</button>').join('') + '</div>';
+function refocus(sel) { const el = sel && $(sel); if (el) el.focus(); }
+
+/* =================== маршрути =================== */
+let R = 'list';
+let routeToken = 0;
+function renderNav() {
+  const keys = { list: 'tabList', write: 'tabWrite', cards: 'tabCards', quiz: 'tabQuiz', pairs: 'tabPairs' };
+  $('#tabs').innerHTML = TABS.filter((k) => k === 'list' || S.ui.modes[k]).map((k) =>
+    '<a href="#' + k + '"' + (k === R ? ' aria-current="page"' : '') + '>' + esc(t(keys[k])) + '</a>').join('');
+}
+function route() {
+  routeToken++;
+  if (W) W.token++;
+  stopPairsTimer();
+  let r = (location.hash || '#list').slice(1);
+  if (!TABS.includes(r) || (r !== 'list' && !S.ui.modes[r])) {
+    r = 'list';
+    try { history.replaceState(null, '', '#list'); } catch (e) {}
+  }
+  if (R === 'pairs' && r !== 'pairs' && P && !P.done) P = null;
+  R = r;
+  renderNav();
+  ({ list: renderList, write: renderWrite, cards: renderCards, quiz: renderQuiz, pairs: renderPairs })[r]();
+}
+const view = () => $('#view');
+const emptyHTML = (key) => '<div class="panel empty"><p>' + esc(t(key || 'emptySet')) + '</p><p style="margin-top:12px"><a class="btn" href="#list">' + esc(t('tabList')) + '</a></p></div>';
+const loadingHTML = () => '<p class="empty">' + esc(t('loading')) + '</p>';
+
+/* =================== список =================== */
+let nameMode = null; // 'new' | 'rename'
+function renderList() {
+  const keep = $('#addIn') ? $('#addIn').value : '';
+  view().innerHTML =
+    '<section class="panel" aria-label="' + esc(t('set')) + '"><div class="setbar">' +
+      '<div><label class="fld" for="setSel">' + esc(t('set')) + '</label><select id="setSel"></select></div>' +
+      '<div class="row">' +
+        '<button class="btn sm" data-act="setNew">' + esc(t('setNew')) + '</button>' +
+        '<button class="btn sm" data-act="setRename">' + esc(t('setRename')) + '</button>' +
+        '<button class="btn sm" data-act="setReset" data-sure="sureReset">' + esc(t('setReset')) + '</button>' +
+        '<button class="btn sm danger" data-act="setDel">' + esc(t('setDelete')) + '</button>' +
+      '</div></div>' +
+      '<form id="nameForm" class="row" style="margin-top:12px" hidden><label class="fld" for="nameIn" style="margin:0;flex-basis:100%">' + esc(t('setName')) + '</label>' +
+        '<input type="text" id="nameIn" maxlength="60" style="flex:1 1 180px;width:auto" autocomplete="off">' +
+        '<button class="btn sm pri" type="submit">' + esc(t('ok')) + '</button>' +
+        '<button class="btn sm" type="button" data-act="nameCancel">' + esc(t('cancel')) + '</button></form>' +
+      '<p class="msg" id="setMsg" role="status"></p>' +
+    '</section>' +
+    '<section class="panel"><label class="fld" for="addIn">' + esc(t('addLabel')) + '</label>' +
+      '<textarea id="addIn" lang="zh" spellcheck="false" placeholder="' + esc(t('addPh')) + '"></textarea>' +
+      '<div class="row" style="margin-top:10px;justify-content:space-between">' +
+        '<label class="ck"><input type="checkbox" id="splitCk"' + (S.ui.split ? ' checked' : '') + '> ' + esc(t('addSplit')) + '</label>' +
+        '<button class="btn pri" data-act="add">' + esc(t('addBtn')) + '</button></div>' +
+      '<p class="msg" id="addMsg" role="status"></p>' +
+      '<details class="help"><summary>' + esc(t('addHelp')) + '</summary><pre>' + esc(t('addHelpText')) + '</pre></details>' +
+    '</section>' +
+    '<section><h2 id="setTitle"></h2><div class="tiles" id="tiles"></div></section>';
+  $('#addIn').value = keep;
+  nameMode = null;
+  renderSetSel();
+  renderTiles();
+}
+function renderSetSel() {
+  $('#setSel').innerHTML = S.sets.map((s) => '<option value="' + esc(s.id) + '"' + (s.id === S.cur ? ' selected' : '') + '>' +
+    esc(s.name) + (s.demo ? ' (' + esc(t('demo')) + ')' : '') + '</option>').join('');
+}
+function tileHTML(it, i) {
+  const b = progOf(it.h);
+  return '<button class="tile" data-act="open" data-idx="' + i + '" aria-label="' + esc([it.h, it.p, it.m].filter(Boolean).join(' · ')) + '">' +
+    '<span class="cells" lang="zh">' + [...it.h].map((c) => '<span class="cell">' + glyph(c) + '</span>').join('') + '</span>' +
+    (it.p ? '<span class="tp">' + esc(it.p) + '</span>' : '') + (it.m ? '<span class="tm">' + esc(it.m) + '</span>' : '') +
+    '<span class="bars" aria-hidden="true">' + [0, 1, 2, 3].map((k) => '<i' + (k < b ? ' class="on"' : '') + '></i>').join('') + '</span></button>';
+}
+function renderTiles() {
+  const set = curSet(), box = $('#tiles');
+  if (!box) return;
+  $('#setTitle').innerHTML = esc(set.name) + (set.demo ? ' <span class="badge">' + esc(t('demo')) + '</span>' : '') +
+    ' <span class="mute" style="font:400 .9rem var(--f-text)">· ' + esc(t('entries', { n: set.items.length })) + '</span>';
+  box.innerHTML = set.items.length ? set.items.map(tileHTML).join('') : '<p class="empty" style="flex:1">' + esc(t('emptySet')) + '</p>';
+  ensure(set.items.flatMap((it) => hanOf(it.h)), renderTiles);
+}
+function armed(btn) {
+  if (btn.dataset.armed) return true;
+  const old = btn.textContent;
+  btn.dataset.armed = '1'; btn.classList.add('armed'); btn.textContent = t(btn.dataset.sure || 'sure');
+  setTimeout(() => { if (btn.isConnected && btn.dataset.armed) { delete btn.dataset.armed; btn.classList.remove('armed'); btn.textContent = old; } }, 3500);
+  return false;
+}
+function showNameForm(mode) {
+  nameMode = mode;
+  $('#nameForm').hidden = false;
+  const inp = $('#nameIn');
+  inp.value = mode === 'rename' ? curSet().name : '';
+  inp.placeholder = t('newSetName');
+  inp.focus(); inp.select();
+}
+function submitName() {
+  const name = $('#nameIn').value.trim() || t('newSetName');
+  if (nameMode === 'rename') { const set = curSet(); set.name = name; }
+  else { const set = { id: uid(), name, items: [] }; S.sets.push(set); S.cur = set.id; }
+  save(); renderList();
+}
+
+/* =================== картка запису =================== */
+let E = null;
+let zhVoice = null;
+function findVoice() {
+  try { zhVoice = (speechSynthesis.getVoices() || []).find((v) => /^zh/i.test(v.lang)) || null; } catch (e) { zhVoice = null; }
+  const b = $('#eListen'); if (b) b.hidden = !zhVoice;
+}
+function openEntry(i) {
+  E = { i, ci: 0, token: 0 };
+  renderEntry();
+  const dlg = $('#dlgEntry');
+  if (!dlg.open) dlg.showModal();
+}
+const IDC = '⿰⿱⿲⿳⿴⿵⿶⿷⿸⿹⿺⿻';
+function infoHTML(ch) {
+  const d = DB[ch];
+  if (!d) return '<p class="mute">' + esc(t('eNoData')) + '</p>';
+  const rows = [[t('eStrokes'), String(d.s.length)]];
+  if (d.k) rows.push([t('eRadical'), '<span class="han" lang="zh">' + esc(d.k) + '</span>']);
+  if (d.x) {
+    const idx = IDC.indexOf([...d.x][0]);
+    const parts = [...d.x].filter((c) => !IDC.includes(c) && c !== '？' && c !== ch);
+    rows.push([t('eStruct'), esc(idx >= 0 ? t('idc' + idx) : t('idcNone')) +
+      (parts.length ? ' · ' + esc(t('eParts')) + ': <span class="han" lang="zh">' + esc(parts.join(' ')) + '</span>' : '')]);
+  }
+  if (d.e) {
+    const type = { ideographic: 'etIdeo', pictographic: 'etPicto', pictophonetic: 'etPhono' }[d.e.t];
+    const bits = [];
+    if (type) bits.push(esc(t(type)));
+    if (d.e.s) bits.push(esc(t('eSem')) + ' <span class="han" lang="zh">' + esc(d.e.s) + '</span>');
+    if (d.e.p) bits.push(esc(t('ePhon')) + ' <span class="han" lang="zh">' + esc(d.e.p) + '</span>');
+    if (d.e.h) bits.push('<span lang="en">' + esc(d.e.h) + '</span>');
+    if (bits.length) rows.push([t('eOrigin'), bits.join(' · ')]);
+  }
+  if (d.p && d.p.length > 1) rows.push([t('eOther'), '<span class="pin">' + esc(d.p.slice(1).join(', ')) + '</span>']);
+  if (d.d) rows.push([t('eDict'), '<span lang="en">' + esc(d.d) + '</span>']);
+  return '<dl class="info">' + rows.map((r) => '<dt>' + esc(r[0]) + '</dt><dd>' + r[1] + '</dd>').join('') + '</dl>';
+}
+function renderEntry() {
+  const set = curSet(), it = set.items[E.i];
+  if (!it) { $('#dlgEntry').close(); return; }
+  const chars = hanOf(it.h);
+  $('#eTitle').textContent = it.h;
+  $('#eTitle').lang = 'zh';
+  const token = ++E.token;
+  if (missing(chars).length) need(chars).then(() => { netErr(false); if (E && E.token === token && $('#dlgEntry').open) renderEntryChar(); }, () => netErr(true));
+  $('#eBody').innerHTML =
+    '<div class="eanim">' +
+      (chars.length > 1 ? '<div class="chips" id="eChips"></div>' : '') +
+      '<div class="ebox">' + gridSVG('tian') + '<div id="eField"></div></div></div>' +
+    '<div class="efields">' +
+      '<div><label class="fld" for="eP">' + esc(t('ePinyin')) + '</label><input type="text" id="eP" class="pin" data-f="p" autocomplete="off" autocapitalize="off" spellcheck="false" value="' + esc(it.p) + '"></div>' +
+      '<div><label class="fld" for="eM">' + esc(t('eMeaning')) + '</label><input type="text" id="eM" data-f="m" autocomplete="off" value="' + esc(it.m) + '"></div>' +
+      '<div><label class="fld" for="eN">' + esc(t('eNote')) + '</label><input type="text" id="eN" data-f="n" autocomplete="off" value="' + esc(it.n || '') + '"></div>' +
+    '</div>' +
+    '<div id="eInfo"></div>' +
+    '<div class="row">' +
+      (S.ui.modes.write ? '<button class="btn pri" data-act="eWrite">' + esc(t('eWrite')) + '</button>' : '') +
+      '<button class="btn" id="eListen" data-act="eListen"' + (zhVoice ? '' : ' hidden') + '>' + esc(t('eListen')) + '</button>' +
+      '<button class="btn danger" data-act="eDelete" style="margin-left:auto">' + esc(t('eDelete')) + '</button>' +
+    '</div>';
+  renderEntryChar();
+}
+function renderEntryChar() {
+  const it = curSet().items[E.i];
+  if (!it) return;
+  const chars = hanOf(it.h), ch = chars[E.ci] || chars[0];
+  const chips = $('#eChips');
+  if (chips) chips.innerHTML = chars.map((c, k) => '<button type="button" class="chip" lang="zh" data-act="eChar" data-k="' + k + '" aria-pressed="' + (k === E.ci) +
+    '" aria-label="' + esc(t('eChar', { c })) + '">' + esc(c) + '</button>').join('');
+  const el = $('#eField');
+  el.innerHTML = '';
+  if (ch && DB[ch]) {
+    const wr = HanziWriter.create(el, ch, { width: 176, height: 176, padding: 12, strokeColor: cssVar('--glyph'), outlineColor: cssVar('--outline'),
+      radicalColor: cssVar('--rad'), strokeAnimationSpeed: 1, delayBetweenStrokes: 180, delayBetweenLoops: 1400, charDataLoader });
+    if (reducedMotion()) wr.showCharacter(); else wr.loopCharacterAnimation();
+  } else if (ch) el.innerHTML = glyph(ch);
+  $('#eInfo').innerHTML = ch ? infoHTML(ch) : '';
+}
+
+/* =================== письмо =================== */
+const STRICT = {
+  soft: { len: 2.3, dist: 480, hint: [1, 2], auto: [2, 4], clean: 1, ok: 4 },
+  normal: { len: 1.5, dist: 380, hint: [1, 3], auto: [4, 6], clean: 0, ok: 2 },
+  strict: { len: 1.0, dist: 350, hint: [1, 3], auto: [false, false], clean: 0, ok: 2 }
+};
+const STAMP = { clean: '好', ok: '可', again: '再' };
+let W = null;
+function newWrite(set, indices) {
+  const idx = shuffle((indices || set.items.map((_, i) => i)).slice());
+  idx.sort((a, b) => progOf(set.items[a].h) - progOf(set.items[b].h));
+  W = { sig: sig(set), queue: idx, pos: 0, ci: 0, miss: 0, stroke: 0, total: 0, done: false, grade: null, results: [], writer: null, token: (W ? W.token : 0) + 1, chars: [] };
+}
+function resetItem() { W.ci = 0; W.miss = 0; W.stroke = 0; W.done = false; W.grade = null; W.charDone = false; }
+function renderWrite() {
+  const set = curSet();
+  if (!set.items.length) { view().innerHTML = emptyHTML(); return; }
+  if (!W || W.sig !== sig(set)) newWrite(set);
+  if (W.pos >= W.queue.length) { renderWriteSummary(); return; }
+  const it = set.items[W.queue[W.pos]];
+  const chars = hanOf(it.h);
+  if (!ensure(chars, renderWrite)) { view().innerHTML = loadingHTML(); return; }
+  W.chars = chars.filter((c) => DB[c]);
+  if (!W.chars.length) { W.results.push({ i: W.queue[W.pos], miss: 0, grade: 'nodata' }); W.pos++; resetItem(); renderWrite(); return; }
+  const o = S.opts;
+  view().innerHTML =
+    '<section class="panel wopts">' +
+      seg('opt', 'level', o.level, [['watch', t('lvlWatch')], ['trace', t('lvlTrace')], ['memory', t('lvlMemory')]], t('lvl')) +
+      seg('opt', 'grid', o.grid, [['mi', '米'], ['tian', '田']], t('grid')) +
+      '<label class="ck"><input type="checkbox" data-opt="rad"' + (o.rad ? ' checked' : '') + '> ' + esc(t('rad')) + '</label>' +
+      '<label class="ck">' + esc(t('strict')) + ' <select data-opt="strict">' + [['soft', 'stSoft'], ['normal', 'stNormal'], ['strict', 'stStrict']].map(([v, k]) =>
+        '<option value="' + v + '"' + (o.strict === v ? ' selected' : '') + '>' + esc(t(k)) + '</option>').join('') + '</select></label>' +
+    '</section>' +
+    '<section class="wmain">' +
+      '<div class="wprompt">' + (S.ui.hintP && it.p ? '<div class="pin" id="wPin">' + esc(it.p) + '</div>' : '') + '<div class="mean" id="wMean">' + esc(it.m) + '</div></div>' +
+      '<div class="chips" id="wChips" lang="zh"></div>' +
+      '<div class="fieldwrap">' + gridSVG(o.grid) + '<div id="field"></div><div class="stamp" id="stamp" hidden></div></div>' +
+      '<div class="wstat" aria-live="polite"><span id="wStroke"></span><span id="wMiss"></span><span>' + esc(t('wItem', { x: W.pos + 1, y: W.queue.length })) + '</span></div>' +
+      '<div class="wbtns">' +
+        '<button class="btn" id="wHint" data-act="wHint">' + esc(t('wHint')) + '</button>' +
+        '<button class="btn" id="wShow" data-act="wShow">' + esc(t('wShow')) + '</button>' +
+        '<button class="btn" id="wSkip" data-act="wSkip">' + esc(t('wSkip')) + '</button>' +
+        '<button class="btn pri" id="wNext" data-act="wNext">' + esc(t('wNext')) + '</button>' +
+      '</div>' +
+    '</section>';
+  mountWriter();
+}
+function writerColors() {
+  return { strokeColor: cssVar('--glyph'), outlineColor: cssVar('--outline'), highlightColor: cssVar('--hl'), drawingColor: cssVar('--draw') };
+}
+function mountWriter() {
+  const el = $('#field');
+  if (!el || !W) return;
+  const ch = W.chars[W.ci], lvl = S.opts.level, token = ++W.token;
+  el.innerHTML = '';
+  const size = Math.round(el.clientWidth);
+  W.size = size; W.total = DB[ch].s.length; W.stroke = W.done ? W.total : 0; W.charDone = false;
+  const opts = Object.assign(writerColors(), { width: size, height: size, padding: size * 0.07, showCharacter: W.done, showOutline: lvl !== 'memory',
+    drawingWidth: Math.max(4, Math.round(size / 55)), strokeAnimationSpeed: 1, delayBetweenStrokes: 160, charDataLoader });
+  if (S.opts.rad) opts.radicalColor = cssVar('--rad');
+  const wr = HanziWriter.create(el, ch, opts);
+  W.writer = wr;
+  if (!W.done) {
+    if (lvl === 'watch') wr.animateCharacter({ onComplete: () => { if (token === W.token) { W.charDone = true; W.stroke = W.total; updateWrite(); } } });
+    else startQuiz(wr, token);
+  }
+  updateWrite();
+}
+function startQuiz(wr, token) {
+  const k = S.opts.level === 'memory' ? 1 : 0, st = STRICT[S.opts.strict] || STRICT.soft;
+  W.stroke = 0;
+  wr.quiz({
+    leniency: st.len, averageDistanceThreshold: st.dist, showHintAfterMisses: st.hint[k], markStrokeCorrectAfterMisses: st.auto[k], highlightOnComplete: true,
+    onMistake: () => { if (token === W.token) { W.miss++; updateWrite(); } },
+    onCorrectStroke: (d) => { if (token === W.token) { W.stroke = d.strokeNum + 1; updateWrite(); } },
+    onComplete: () => { if (token === W.token) charComplete(token); }
+  });
+}
+function charComplete(token) {
+  W.charDone = true;
+  if (W.ci < W.chars.length - 1) {
+    updateWrite();
+    setTimeout(() => { if (W && token === W.token) { W.ci++; mountWriter(); } }, reducedMotion() ? 250 : 700);
+    return;
+  }
+  finishItem();
+}
+function finishItem() {
+  const set = curSet(), it = set.items[W.queue[W.pos]], st = STRICT[S.opts.strict] || STRICT.soft, lvl = S.opts.level;
+  const grade = W.miss <= st.clean ? 'clean' : W.miss <= st.ok ? 'ok' : 'again';
+  const pr = S.prog[it.h] || { b: 0, t: 0 };
+  if (lvl === 'memory') { if (grade === 'clean') pr.b = Math.min(4, pr.b + 1); else if (grade === 'again') pr.b = Math.max(0, pr.b - 1); }
+  else if (lvl === 'trace' && grade === 'clean' && pr.b === 0) pr.b = 1;
+  pr.t = Date.now();
+  S.prog[it.h] = pr;
+  save();
+  W.done = true; W.grade = grade;
+  W.results.push({ i: W.queue[W.pos], miss: W.miss, grade });
+  updateWrite();
+  const nx = $('#wNext'); if (nx) nx.focus();
+}
+function updateWrite() {
+  if (!W || !$('#field')) return;
+  const lvl = S.opts.level, watch = lvl === 'watch';
+  $('#wStroke').textContent = t('wStroke', { x: Math.min(W.stroke + (W.done || W.charDone ? 0 : 1), W.total), y: W.total });
+  $('#wMiss').textContent = watch ? '' : t('wMiss', { n: W.miss });
+  const chips = $('#wChips');
+  chips.hidden = W.chars.length < 2;
+  chips.innerHTML = W.chars.map((c, k) => {
+    const done = W.done || k < W.ci || (k === W.ci && W.charDone);
+    return '<span class="chip' + (done ? ' done' : k === W.ci ? ' cur' : '') + (lvl === 'memory' && !done ? ' hid' : '') + '">' + esc(c) + '</span>';
+  }).join('');
+  $('#wHint').hidden = watch;
+  $('#wHint').disabled = W.done || W.charDone;
+  $('#wShow').disabled = W.done;
+  $('#wSkip').disabled = W.done;
+  $('#wNext').disabled = !(W.done || watch);
+  const stamp = $('#stamp');
+  stamp.hidden = !W.done || !STAMP[W.grade];
+  if (!stamp.hidden) { stamp.textContent = STAMP[W.grade]; stamp.className = 'stamp g-' + W.grade; stamp.setAttribute('aria-label', t({ clean: 'gClean', ok: 'gOk', again: 'gAgain' }[W.grade])); stamp.setAttribute('role', 'img'); }
+}
+function writeNext() {
+  if (!W) return;
+  if (S.opts.level === 'watch' && !W.done) {
+    if (W.ci < W.chars.length - 1) { W.ci++; mountWriter(); return; }
+    W.results.push({ i: W.queue[W.pos], miss: 0, grade: 'watch' });
+  } else if (!W.done) return;
+  W.pos++; resetItem(); renderWrite();
+}
+function writeSkip() {
+  if (!W || W.done) return;
+  W.results.push({ i: W.queue[W.pos], miss: W.miss, grade: 'skip' });
+  W.pos++; resetItem(); renderWrite();
+}
+function writeHint() {
+  if (!W || W.done || W.charDone || S.opts.level === 'watch' || !W.writer) return;
+  W.miss++;
+  W.writer.highlightStroke(Math.min(W.stroke, W.total - 1));
+  updateWrite();
+}
+function writeShow() {
+  if (!W || W.done || !W.writer) return;
+  const lvl = S.opts.level, wr = W.writer, token = ++W.token;
+  if (lvl === 'memory') W.miss += 3;
+  if (lvl !== 'watch') wr.cancelQuiz();
+  W.stroke = 0; W.charDone = false;
+  updateWrite();
+  wr.animateCharacter({ onComplete: () => {
+    if (!W || token !== W.token) return;
+    if (lvl === 'watch') { W.charDone = true; W.stroke = W.total; updateWrite(); }
+    else setTimeout(() => { if (W && token === W.token) startQuiz(wr, token); }, 400);
+  } });
+}
+const GRADE_KEY = { clean: 'gClean', ok: 'gOk', again: 'gAgain', skip: 'gSkip', watch: 'gWatch', nodata: 'gNoData' };
+function renderWriteSummary() {
+  const set = curSet();
+  const missed = W.results.filter((r) => r.grade === 'skip' || r.grade === 'again' || r.miss > 0);
+  view().innerHTML = '<section class="panel"><h2>' + esc(t('wDone')) + '</h2><ul class="results" id="wResults">' +
+    W.results.map((r) => { const it = set.items[r.i]; if (!it) return ''; const st = STAMP[r.grade];
+      return '<li data-grade="' + r.grade + '"><span class="han" lang="zh">' + esc(it.h) + '</span><span class="rm">' + esc(it.m) + '</span>' +
+        '<span>' + esc(t(GRADE_KEY[r.grade])) + (st ? ' · ' + esc(t('wMiss', { n: r.miss })) : '') + '</span>' +
+        '<span class="g g-' + (st ? r.grade : 'none') + '" aria-hidden="true">' + (st || '–') + '</span></li>'; }).join('') +
+    '</ul><div class="row">' +
+      (missed.length ? '<button class="btn pri" data-act="wRepeat">' + esc(t('wRepeatMiss')) + '</button>' : '') +
+      '<button class="btn' + (missed.length ? '' : ' pri') + '" data-act="wAll">' + esc(t('wAgain')) + '</button></div></section>';
+}
+
+/* =================== картки =================== */
+let C = null;
+function renderCards() {
+  const set = curSet();
+  if (!set.items.length) { view().innerHTML = emptyHTML(); return; }
+  if (!C || C.sig !== sig(set)) C = { sig: sig(set), queue: shuffle(set.items.map((_, i) => i)), flipped: false };
+  const head = '<section class="panel row">' + seg('opt', 'dir', S.opts.dir, [['hm', t('cHM')], ['mh', t('cMH')]], t('cDir')) + '</section>';
+  if (!C.queue.length) {
+    view().innerHTML = head + '<section class="center"><p class="score">' + esc(t('cDone')) + '</p><button class="btn pri" data-act="cRestart">' + esc(t('cRestart')) + '</button></section>';
+    return;
+  }
+  const it = set.items[C.queue[0]];
+  ensure(hanOf(it.h), renderCards);
+  const hm = S.opts.dir !== 'mh';
+  const hanSide = bigGlyphs(it.h), meanSide = '<span class="mean">' + esc(it.m || '—') + '</span>';
+  const pin = it.p ? '<span class="pin">' + esc(it.p) + '</span>' : '';
+  const inner = !C.flipped ? (hm ? hanSide : meanSide) + '<span class="tap">' + esc(t('cFlip')) + '</span>'
+    : (hm ? pin + meanSide : hanSide + pin) + (it.n ? '<span class="mute">' + esc(it.n) + '</span>' : '');
+  view().innerHTML = head + '<section class="center">' +
+    '<p class="mute" id="cLeft">' + esc(t('cLeft', { n: C.queue.length })) + '</p>' +
+    '<button class="fc' + (C.flipped ? ' back' : '') + '" id="fc" data-act="cFlip" aria-live="polite">' + inner + '</button>' +
+    '<div class="row"><button class="btn" data-act="cAgain">' + esc(t('cAgain')) + '</button><button class="btn pri" data-act="cKnow">' + esc(t('cKnow')) + '</button></div></section>';
+}
+
+/* =================== вікторина =================== */
+let Q = null;
+const QTYPES = { hm: ['h', 'm'], hp: ['h', 'p'], mh: ['m', 'h'], ph: ['p', 'h'] };
+const norm = (v) => String(v || '').trim().toLowerCase();
+function buildQuestion(items, i, type) {
+  const [pf, af] = QTYPES[type], it = items[i];
+  if (!norm(it[pf]) || !norm(it[af])) return null;
+  const seen = new Set([norm(it[af])]), pool = [];
+  for (const j of shuffle(items.map((_, k) => k))) {
+    const o = items[j];
+    if (j === i || !norm(o[af]) || seen.has(norm(o[af])) || norm(o[pf]) === norm(it[pf])) continue;
+    seen.add(norm(o[af])); pool.push(j);
+    if (pool.length === 3) break;
+  }
+  if (pool.length < 2) return null;
+  return { type, i, opts: shuffle([i].concat(pool)) };
+}
+function newQuiz(set) {
+  const items = set.items, order = shuffle(items.map((_, i) => i)), n = Math.min(12, items.length * 2), qs = [], used = new Set();
+  for (let k = 0; k < n * 4 && qs.length < n && items.length >= 3; k++) {
+    const i = order[k % order.length];
+    for (const type of shuffle(Object.keys(QTYPES))) {
+      if (used.has(i + type)) continue;
+      const q = buildQuestion(items, i, type);
+      if (q) { used.add(i + type); qs.push(q); break; }
+    }
+  }
+  Q = { sig: sig(set), qs, pos: 0, score: 0, ans: null, token: 0 };
+}
+function renderQuiz() {
+  const set = curSet();
+  if (!Q || Q.sig !== sig(set)) newQuiz(set);
+  if (set.items.length < 3 || !Q.qs.length) { view().innerHTML = emptyHTML('qNeed'); return; }
+  if (Q.pos >= Q.qs.length) {
+    view().innerHTML = '<section class="center panel"><p class="score" id="qScore">' + esc(t('qScore', { x: Q.score, y: Q.qs.length })) + '</p>' +
+      '<button class="btn pri" data-act="qAgain">' + esc(t('qAgain')) + '</button></section>';
+    return;
+  }
+  const q = Q.qs[Q.pos], [pf, af] = QTYPES[q.type], it = set.items[q.i];
+  ensure((pf === 'h' ? [it] : q.opts.map((j) => set.items[j])).flatMap((x) => hanOf(x.h)), renderQuiz);
+  const show = (x, f) => f === 'h' ? bigGlyphs(x.h) : '<span class="' + (f === 'p' ? 'pin ' : '') + 'txt">' + esc(x[f]) + '</span>';
+  view().innerHTML = '<section class="center">' +
+    '<p class="mute">' + esc(t('qOf', { x: Q.pos + 1, y: Q.qs.length })) + '</p>' +
+    '<h2 style="text-align:center">' + esc(t({ hm: 'qHM', hp: 'qHP', mh: 'qMH', ph: 'qPH' }[q.type])) + '</h2>' +
+    '<div class="qprompt" id="qPrompt" data-type="' + q.type + '">' + show(it, pf) + '</div>' +
+    '<div class="qopts" id="qOpts">' + q.opts.map((j, k) => {
+      const cls = Q.ans == null ? '' : j === q.i ? ' right' : k === Q.ans ? ' wrong' : '';
+      return '<button class="qopt' + cls + '" data-act="qPick" data-k="' + k + '"' + (j === q.i ? ' data-right="1"' : '') + (Q.ans != null ? ' disabled' : '') + '><kbd>' + (k + 1) + '</kbd>' + show(set.items[j], af) + '</button>';
+    }).join('') + '</div>' +
+    '<button class="btn pri" id="qNext" data-act="qNext"' + (Q.ans == null ? ' hidden' : '') + '>' + esc(t('wNext')) + '</button>' +
+    '<p class="mute" style="font-size:.85rem;text-align:center">' + esc(t('qKeys')) + '</p></section>';
+  if (Q.ans != null) $('#qNext').focus();
+}
+function quizPick(k) {
+  if (!Q || Q.ans != null || Q.pos >= Q.qs.length) return;
+  const q = Q.qs[Q.pos];
+  if (k < 0 || k >= q.opts.length) return;
+  Q.ans = k;
+  const right = q.opts[k] === q.i;
+  if (right) Q.score++;
+  renderQuiz();
+  if (right) { const token = ++Q.token; setTimeout(() => { if (Q && Q.token === token && R === 'quiz') quizNext(); }, 800); }
+}
+function quizNext() {
+  if (!Q || Q.ans == null) return;
+  Q.token++; Q.pos++; Q.ans = null;
+  renderQuiz();
+}
+
+/* =================== пари =================== */
+let P = null;
+const fmtTime = (ms) => (ms / 1000).toFixed(1) + ' ' + t('sec');
+function stopPairsTimer() { if (P && P.timer) { clearInterval(P.timer); P.timer = null; } }
+function newPairs(set) {
+  stopPairsTimer();
+  const seen = new Set(), pick = [];
+  for (const i of shuffle(set.items.map((_, k) => k))) {
+    const m = norm(set.items[i].m);
+    if (!m || seen.has(m)) continue;
+    seen.add(m); pick.push(i);
+    if (pick.length === 6) break;
+  }
+  const cards = shuffle(pick.flatMap((i) => [{ i, kind: 'h' }, { i, kind: 'm' }]));
+  P = { sig: sig(set), setId: set.id, n: pick.length, cards, sel: null, matched: new Set(), bad: [], tries: 0, t0: 0, elapsed: 0, timer: null, done: false, record: false };
+}
+function renderPairs() {
+  const set = curSet();
+  if (!P || P.sig !== sig(set)) newPairs(set);
+  if (P.n < 2) { view().innerHTML = emptyHTML('pNeed'); return; }
+  ensure(P.cards.filter((c) => c.kind === 'h').flatMap((c) => hanOf(set.items[c.i].h)), renderPairs);
+  const best = S.best[P.setId + ':' + P.n];
+  view().innerHTML = '<section class="center">' +
+    '<p class="mute">' + esc(t('pHint')) + '</p>' +
+    '<div class="wstat"><span id="pTime">' + esc(t('pTime', { t: fmtTime(P.elapsed) })) + '</span><span id="pTries">' + esc(t('pTries', { n: P.tries })) + '</span>' +
+      (best ? '<span id="pBest">' + esc(t('pBest', { t: fmtTime(best) })) + '</span>' : '') + '</div>' +
+    '<div class="pgrid" id="pGrid">' + P.cards.map((c, id) => {
+      const it = set.items[c.i], matched = P.matched.has(c.i);
+      return '<button class="pc' + (matched ? ' matched' : '') + (P.bad.includes(id) ? ' bad' : '') + '" data-act="pPick" data-id="' + id + '" data-kind="' + c.kind + '" data-pair="' + c.i + '" aria-pressed="' + (P.sel === id) + '"' +
+        (matched ? ' disabled' : '') + '>' + (c.kind === 'h' ? bigGlyphs(it.h) : '<span>' + esc(it.m) + '</span>') + '</button>';
+    }).join('') + '</div>' +
+    (P.done ? '<p class="score" id="pDone">' + esc(t('pDone')) + '</p>' + (P.record ? '<p>' + esc(t('pNewBest')) + '</p>' : '') : '') +
+    '<button class="btn' + (P.done ? ' pri' : '') + '" data-act="pAgain">' + esc(t('pAgain')) + '</button></section>';
+}
+function pairsPick(id) {
+  if (!P || P.done) return;
+  const c = P.cards[id];
+  if (!c || P.matched.has(c.i)) return;
+  if (!P.t0) {
+    P.t0 = Date.now();
+    P.timer = setInterval(() => { P.elapsed = Date.now() - P.t0; const el = $('#pTime'); if (el) el.textContent = t('pTime', { t: fmtTime(P.elapsed) }); }, 100);
+  }
+  P.bad = [];
+  const a = P.sel == null ? null : P.cards[P.sel];
+  if (!a) P.sel = id;
+  else if (P.sel === id) P.sel = null;
+  else if (a.kind === c.kind) P.sel = id;
+  else {
+    P.tries++;
+    if (a.i === c.i) {
+      P.matched.add(c.i);
+      if (P.matched.size === P.n) {
+        P.elapsed = Date.now() - P.t0; P.done = true; stopPairsTimer();
+        const key = P.setId + ':' + P.n;
+        if (!S.best[key] || P.elapsed < S.best[key]) { S.best[key] = P.elapsed; P.record = true; save(); }
+      }
+    } else P.bad = [P.sel, id];
+    P.sel = null;
+  }
+  renderPairs();
+  refocus('.pc[data-id="' + id + '"]:not(:disabled)');
+}
+
+/* =================== налаштування =================== */
+function renderSettings() {
+  const ui = S.ui, sz = [['S', 'S'], ['M', 'M'], ['L', 'L'], ['XL', 'XL']];
+  const ck = (k, label, on, attr) => '<label class="ck"><input type="checkbox" ' + attr + '="' + k + '"' + (on ? ' checked' : '') + '> ' + esc(label) + '</label>';
+  $('#sBody').innerHTML = '<div class="sgrid">' +
+    '<div><h3>' + esc(t('sLang')) + '</h3>' + seg('ui', 'lang', ui.lang, LANGS, t('sLang')) + '</div>' +
+    '<div><h3>' + esc(t('sTheme')) + '</h3>' + seg('ui', 'theme', ui.theme, [['auto', t('thAuto')], ['light', t('thLight')], ['dark', t('thDark')]], t('sTheme')) + '</div>' +
+    '<div><h3>' + esc(t('sScheme')) + '</h3><div class="swatches" role="group" aria-label="' + esc(t('sScheme')) + '">' + SCHEMES.map(([id, a, b]) =>
+      '<button type="button" class="sw" data-act="ui" data-k="scheme" data-v="' + id + '" aria-pressed="' + (ui.scheme === id) + '"><i style="background:linear-gradient(135deg,' + a + ' 50%,' + b + ' 50%)"></i>' +
+      esc(t('sc' + id[0].toUpperCase() + id.slice(1))) + '</button>').join('') + '</div></div>' +
+    '<div><h3>' + esc(t('sSizes')) + '</h3>' + [['text', 'szText'], ['tile', 'szTile'], ['field', 'szField']].map(([k, label]) =>
+      '<div class="srow" style="margin-bottom:8px"><span>' + esc(t(label)) + '</span>' + seg('ui', k, ui[k], sz, t(label)) + '</div>').join('') + '</div>' +
+    '<div><h3>' + esc(t('sShow')) + '</h3><div class="cks">' + ck('showP', t('shP'), ui.showP, 'data-ui') + ck('showM', t('shM'), ui.showM, 'data-ui') +
+      ck('showB', t('shB'), ui.showB, 'data-ui') + ck('hintP', t('shHint'), ui.hintP, 'data-ui') + '</div></div>' +
+    '<div><h3>' + esc(t('sModes')) + '</h3><div class="cks">' + [['write', 'tabWrite'], ['cards', 'tabCards'], ['quiz', 'tabQuiz'], ['pairs', 'tabPairs']].map(([k, label]) =>
+      ck(k, t(label), ui.modes[k], 'data-mode')).join('') + '</div></div>' +
+    '<div><button class="btn" data-act="uiReset">' + esc(t('sReset')) + '</button></div></div>';
+}
+function uiChanged(focusSel) {
+  save(); applyUI(); renderSettings(); route();
+  refocus(focusSel);
+}
+
+/* =================== події =================== */
+const ACT = {
+  retry() { netErr(false); route(); if ($('#dlgEntry').open && E) renderEntry(); },
+  settings() { renderSettings(); $('#dlgSet').showModal(); },
+  close(b) { b.closest('dialog').close(); },
+  ui(b) {
+    const k = b.dataset.k, v = b.dataset.v;
+    if (k === 'lang' && v !== S.ui.lang) relocalizeDemo(v);
+    S.ui[k] = v;
+    uiChanged('#sBody [data-k="' + k + '"][data-v="' + v + '"]');
+  },
+  uiReset() { S.ui = Object.assign(defaultUI(S.ui.lang), { split: S.ui.split }); uiChanged('#sBody [data-act="uiReset"]'); },
+  opt(b) {
+    const k = b.dataset.k, v = b.dataset.v;
+    if (S.opts[k] === v) return;
+    S.opts[k] = v; save();
+    if (R === 'write' && W && k === 'level') { if (W.done) { W.pos++; } resetItem(); }
+    if (R === 'cards' && C) C.flipped = false;
+    route();
+    refocus('#view [data-k="' + k + '"][data-v="' + v + '"]');
+  },
+  setNew() { showNameForm('new'); },
+  setRename() { showNameForm('rename'); },
+  nameCancel() { $('#nameForm').hidden = true; nameMode = null; },
+  setReset(b) {
+    if (!armed(b)) return;
+    for (const it of curSet().items) delete S.prog[it.h];
+    save(); renderList();
+    $('#setMsg').textContent = t('progReset');
+  },
+  setDel(b) {
+    if (!armed(b)) return;
+    S.sets = S.sets.filter((s) => s.id !== S.cur);
+    if (!S.sets.length) S.sets.push(demoSet(S.ui.lang));
+    S.cur = S.sets[0].id;
+    save(); renderList();
+  },
+  add() {
+    const inp = $('#addIn'), res = addEntries(inp.value, $('#splitCk').checked);
+    if (res.none) { $('#addMsg').textContent = t('addNone'); return; }
+    inp.value = '';
+    renderList();
+    $('#addMsg').textContent = res.created ? t('addedNew', { n: res.n, m: res.m, s: res.created }) : t('added', { n: res.n, m: res.m });
+  },
+  open(b) { openEntry(+b.dataset.idx); },
+  eChar(b) { E.ci = +b.dataset.k; renderEntryChar(); refocus('#eChips [data-k="' + E.ci + '"]'); },
+  eWrite() {
+    const set = curSet(), i = E.i;
+    $('#dlgEntry').close();
+    newWrite(set, [i]);
+    if (location.hash === '#write') route(); else location.hash = '#write';
+  },
+  eListen() {
+    const it = curSet().items[E.i];
+    if (!it || !zhVoice) return;
+    try {
+      const u = new SpeechSynthesisUtterance(it.h);
+      u.lang = 'zh-CN'; u.voice = zhVoice; u.rate = 0.8;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    } catch (e) {}
+  },
+  eDelete(b) {
+    if (!armed(b)) return;
+    curSet().items.splice(E.i, 1);
+    save();
+    $('#dlgEntry').close();
+  },
+  wHint: writeHint, wShow: writeShow, wSkip: writeSkip, wNext: writeNext,
+  wRepeat() {
+    const idx = W.results.filter((r) => r.grade === 'skip' || r.grade === 'again' || r.miss > 0).map((r) => r.i);
+    newWrite(curSet(), idx); renderWrite();
+  },
+  wAll() { newWrite(curSet()); renderWrite(); },
+  cFlip() { C.flipped = !C.flipped; renderCards(); refocus('#fc'); },
+  cAgain() { C.queue.push(C.queue.shift()); C.flipped = false; renderCards(); refocus('#fc'); },
+  cKnow() { C.queue.shift(); C.flipped = false; renderCards(); refocus('#fc'); },
+  cRestart() { C = null; renderCards(); refocus('#fc'); },
+  qPick(b) { quizPick(+b.dataset.k); },
+  qNext: quizNext,
+  qAgain() { newQuiz(curSet()); renderQuiz(); },
+  pPick(b) { pairsPick(+b.dataset.id); },
+  pAgain() { newPairs(curSet()); renderPairs(); }
+};
+document.addEventListener('click', (ev) => {
+  const b = ev.target.closest('[data-act]');
+  if (b && !b.disabled) { if (b.tagName === 'A') ev.preventDefault(); ACT[b.dataset.act](b); return; }
+  if (ev.target.tagName === 'DIALOG') ev.target.close(); // клік по затіненню
+});
+document.addEventListener('submit', (ev) => { if (ev.target.id === 'nameForm') { ev.preventDefault(); submitName(); } });
+document.addEventListener('change', (ev) => {
+  const el = ev.target;
+  if (el.id === 'setSel') { S.cur = el.value; save(); renderList(); refocus('#setSel'); }
+  else if (el.id === 'splitCk') { S.ui.split = el.checked; save(); }
+  else if (el.dataset.ui) { S.ui[el.dataset.ui] = el.checked; uiChanged('#sBody [data-ui="' + el.dataset.ui + '"]'); }
+  else if (el.dataset.mode) { S.ui.modes[el.dataset.mode] = el.checked; uiChanged('#sBody [data-mode="' + el.dataset.mode + '"]'); }
+  else if (el.dataset.opt === 'rad') { S.opts.rad = el.checked; save(); mountWriter(); }
+  else if (el.dataset.opt === 'strict') { S.opts.strict = el.value; save(); if (W && !W.done) { resetItem(); } renderWrite(); refocus('[data-opt="strict"]'); }
+});
+document.addEventListener('input', (ev) => {
+  const f = ev.target.dataset && ev.target.dataset.f;
+  if (!f || !E) return;
+  const it = curSet().items[E.i];
+  if (!it) return;
+  const v = ev.target.value.trim();
+  if (f === 'n') { if (v) it.n = v; else delete it.n; }
+  else { it[f] = v; delete it[f === 'p' ? 'ap' : 'a']; }
+  save();
+});
+$('#dlgEntry').addEventListener('close', () => {
+  if (E) E.token++;
+  $('#eField').innerHTML = '';
+  try { speechSynthesis.cancel(); } catch (e) {}
+  const i = E ? E.i : -1;
+  E = null;
+  if (R === 'list') { renderTiles(); refocus('.tile[data-idx="' + i + '"]'); } else route();
+});
+document.addEventListener('keydown', (ev) => {
+  if (ev.ctrlKey || ev.metaKey || ev.altKey || document.querySelector('dialog[open]')) return;
+  const tag = ev.target.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  if (R === 'quiz' && Q) {
+    if (/^[1-4]$/.test(ev.key)) { ev.preventDefault(); quizPick(+ev.key - 1); }
+    else if (ev.key === 'Enter' && Q.ans != null && tag !== 'BUTTON') { ev.preventDefault(); quizNext(); }
+  } else if (R === 'write' && W && ev.key === 'Enter' && tag !== 'BUTTON' && tag !== 'A') { ev.preventDefault(); writeNext(); }
+});
+window.addEventListener('hashchange', route);
+let resizeTimer = 0;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { const el = $('#field'); if (R === 'write' && W && el && Math.round(el.clientWidth) !== W.size) mountWriter(); }, 200);
+});
+if (mqDark) { const onScheme = () => { if (S.ui.theme === 'auto') { applyUI(); route(); } }; if (mqDark.addEventListener) mqDark.addEventListener('change', onScheme); else if (mqDark.addListener) mqDark.addListener(onScheme); }
+if ('speechSynthesis' in window) {
+  findVoice();
+  try { speechSynthesis.addEventListener('voiceschanged', findVoice); } catch (e) {}
+}
+
+window.__zoshyt = { T, DB, STRICT, parseInput, state: () => S, write: () => W };
+applyUI();
+route();
+</script>
+</body>
+</html>

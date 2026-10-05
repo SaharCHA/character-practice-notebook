@@ -1,0 +1,35 @@
+server {
+  listen ${PORT};
+  server_name _;
+  root /usr/share/nginx/html;
+  index index.html;
+  server_tokens off;
+
+  # дані про риски добре стискаються (приблизно втричі)
+  gzip on;
+  gzip_comp_level 6;
+  gzip_min_length 1024;
+  gzip_vary on;
+  gzip_types application/json application/javascript text/javascript text/css image/svg+xml;
+
+  add_header X-Content-Type-Options nosniff always;
+  add_header Referrer-Policy strict-origin-when-cross-origin always;
+
+  # сторінка завжди перевіряється на свіжість, дані кешуються на добу
+  location = /index.html {
+    add_header Cache-Control "no-cache" always;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+  }
+  location /d/ {
+    add_header Cache-Control "public, max-age=86400" always;
+    add_header X-Content-Type-Options nosniff always;
+  }
+  location = /hanzi-writer.min.js {
+    add_header Cache-Control "public, max-age=86400" always;
+    add_header X-Content-Type-Options nosniff always;
+  }
+  location / {
+    try_files $uri $uri/ =404;
+  }
+}
